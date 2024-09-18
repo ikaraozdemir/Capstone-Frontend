@@ -8,7 +8,6 @@ function Publisher() {
     const [loading, setLoading] = useState(true);
     const [switchOn, setSwitchOn] = useState(true);
     const [updateSwitch, setUpdateSwitch] = useState(false);
-
     const [newPublisher, setNewPublisher] = useState({
         id:"",
         name:"",
@@ -65,17 +64,31 @@ function Publisher() {
         });
     }
 
-    const handlePublisherUpdate = (publisher) => {
-        axios.put(import.meta.env.VITE_APP_BASE_URL + "/api/v1/publishers/" + publisher.id)
+    const handlePublisherUpdate = () => {
+        axios.put(import.meta.env.VITE_APP_BASE_URL + "/api/v1/publishers/" + updatePublisher.id, updatePublisher)
         .then((res)=> {
             console.log(res);
             setSwitchOn(false);
+            setUpdatePublisher({
+                id:"",
+                name:"",
+                establishmentYear: "",
+                address:"",
+            });
         });
     };
 
     const handlePublisherUpdateSettings = (publisher) => {
         setUpdatePublisher(publisher);
         setUpdateSwitch(true);
+    }
+
+    const handleUpdateChange = (e) => {
+        const {name, value} = e.target;
+        setUpdatePublisher((prev) => (
+            {...prev,
+            [name]: value,}
+        ));
     }
 
 
@@ -87,7 +100,7 @@ function Publisher() {
     name="id" 
     placeholder="ID" 
     value={updateSwitch ? updatePublisher.id : newPublisher.id}
-    onChange={handleChange} 
+    onChange={updateSwitch ? handleUpdateChange : handleChange}
     />
 
     <input 
@@ -95,19 +108,19 @@ function Publisher() {
     name="name" 
     placeholder="Name" 
     value={updateSwitch ? updatePublisher.name : newPublisher.name}
-    onChange={handleChange}/>
+    onChange={updateSwitch ? handleUpdateChange : handleChange}/>
     <input 
     type="number" 
     name="establishmentYear"
     placeholder="Establishment Year" 
     value={updateSwitch ? updatePublisher.establishmentYear : newPublisher.establishmentYear}
-    onChange={handleChange}/>
+    onChange={updateSwitch ? handleUpdateChange : handleChange}/>
     <input 
     type="text" 
     name="address" 
     placeholder="Address" 
     value={updateSwitch ? updatePublisher.address : newPublisher.address}
-    onChange={handleChange}/>
+    onChange={updateSwitch ? handleUpdateChange : handleChange}/>
     <br />
     <button onClick={handlePublisher}>Kaydet</button>
     <button onClick={handlePublisherUpdate}>Güncelle</button>
@@ -117,10 +130,8 @@ function Publisher() {
             {item.name}
             <DeleteOutlineIcon style={{fontSize:16}} onClick={()=>handlePublisherDelete(item)}/>
             <SettingsIcon style={{fontSize:16}} onClick={()=>handlePublisherUpdateSettings(item)}/>
-
         </li>
-        
-    ) )}</ul>
+    ))}</ul>
     </>
   )
 }
