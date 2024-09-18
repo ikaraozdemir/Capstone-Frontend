@@ -116,7 +116,7 @@ function Category() {
     {updateCategorySwitch ? "Güncelle" : "Kaydet"}
     </button>
     <h2>Categories</h2>
-    <ul>{categories.map((item) => (
+    <ul>{categories?.map((item) => (
         <li key={item.id}>
             <EditIcon style={{fontSize:16}} onClick={()=>handleCategoryUpdateSettings(item)}/>
             {item.name}

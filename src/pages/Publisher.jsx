@@ -125,7 +125,7 @@ function Publisher() {
     {updateSwitch ? "Güncelle" : "Kaydet"}
     </button>
     <h2>Publishers</h2>
-    <ul>{publishers.map((item) => (
+    <ul>{publishers?.map((item) => (
         <li key={item.id}>
             <EditIcon style={{fontSize:16}} onClick={()=>handlePublisherUpdateSettings(item)}/>
             {item.name}
