@@ -1,31 +1,32 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import SettingsIcon from '@mui/icons-material/Settings';
+import EditIcon from '@mui/icons-material/Edit';
 
 function Publisher() {
+    const initialState = {
+        id:"",
+        name:"",
+        establishmentYear: "",
+        address:"",
+    }
     const [publishers, setPublishers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [switchOn, setSwitchOn] = useState(true);
     const [updateSwitch, setUpdateSwitch] = useState(false);
-    const [newPublisher, setNewPublisher] = useState({
-        id:"",
-        name:"",
-        establishmentYear: "",
-        address:"",
-    });
-    const [updatePublisher, setUpdatePublisher] = useState({
-        id:"",
-        name:"",
-        establishmentYear: "",
-        address:"",
-    });
+    const [newPublisher, setNewPublisher] = useState(initialState);
+    const [updatePublisher, setUpdatePublisher] = useState(initialState);
 
 
     useEffect(() => {
-        axios.get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/publishers").then((res) => {setPublishers(res.data);
+        axios.get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/publishers")
+        .then((res) => 
+            {setPublishers(res.data);
             setLoading(false);
             setSwitchOn(true);
+        })
+        .catch((error) => {
+            console.log(error.message);  
         });
     },[switchOn]);
 
@@ -36,12 +37,9 @@ function Publisher() {
         .then((res) => {
             console.log(res);
             setSwitchOn(false);
-            setNewPublisher({
-                id:"",
-                name:"",
-                establishmentYear: "",
-                address:"",
-            });
+            setNewPublisher(
+                initialState
+            );
         })
         .catch((err) => {
             console.log(err);
@@ -58,23 +56,25 @@ function Publisher() {
 
     const handlePublisherDelete = (publisher) => {
         axios.delete(import.meta.env.VITE_APP_BASE_URL + "/api/v1/publishers/" + publisher.id)
-        .then((res)=> {
-            console.log(res);
-            setSwitchOn(false);
-        });
-    }
+            .then(() => {
+                setSwitchOn(false); 
+            })
+            .catch((error) => {
+                console.log(error.message);  
+            });
+    };
+    
 
     const handlePublisherUpdate = () => {
         axios.put(import.meta.env.VITE_APP_BASE_URL + "/api/v1/publishers/" + updatePublisher.id, updatePublisher)
         .then((res)=> {
             console.log(res);
             setSwitchOn(false);
-            setUpdatePublisher({
-                id:"",
-                name:"",
-                establishmentYear: "",
-                address:"",
-            });
+            setUpdateSwitch(false);
+            setUpdatePublisher(initialState);
+        })
+        .catch((error) => {
+            console.log(error.message);  
         });
     };
 
@@ -94,7 +94,7 @@ function Publisher() {
 
   return (
     <>
-    <h2>Add New Publisher</h2>
+    <h1>Publisher Management</h1>
     <input 
     type="number" 
     name="id" 
@@ -102,7 +102,6 @@ function Publisher() {
     value={updateSwitch ? updatePublisher.id : newPublisher.id}
     onChange={updateSwitch ? handleUpdateChange : handleChange}
     />
-
     <input 
     type="text"
     name="name" 
@@ -122,14 +121,15 @@ function Publisher() {
     value={updateSwitch ? updatePublisher.address : newPublisher.address}
     onChange={updateSwitch ? handleUpdateChange : handleChange}/>
     <br />
-    <button onClick={handlePublisher}>Kaydet</button>
-    <button onClick={handlePublisherUpdate}>Güncelle</button>
-    <h1>Publishers</h1>
+    <button onClick={updateSwitch ? handlePublisherUpdate : handlePublisher}>
+    {updateSwitch ? "Güncelle" : "Kaydet"}
+    </button>
+    <h2>Publishers</h2>
     <ul>{publishers.map((item) => (
         <li key={item.id}>
+            <EditIcon style={{fontSize:16}} onClick={()=>handlePublisherUpdateSettings(item)}/>
             {item.name}
             <DeleteOutlineIcon style={{fontSize:16}} onClick={()=>handlePublisherDelete(item)}/>
-            <SettingsIcon style={{fontSize:16}} onClick={()=>handlePublisherUpdateSettings(item)}/>
         </li>
     ))}</ul>
     </>
