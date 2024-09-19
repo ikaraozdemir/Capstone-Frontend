@@ -89,6 +89,7 @@ function Borrowing() {
         value={newBorrowing.borrowingDate}
         onChange={handleChange}
       />
+
       <br/>
     <button onClick={updateSwitch ? handleBorrowingUpdate : handleBorrowing}>
     {updateSwitch ? "Güncelle" : "Kaydet"}
