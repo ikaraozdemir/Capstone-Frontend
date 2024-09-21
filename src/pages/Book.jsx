@@ -9,6 +9,23 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+let errMessage = "";
 
 function Book() {
   const initialBook = {
@@ -41,6 +58,10 @@ function Book() {
   const [categories, setCategories] = useState([]);
   const [updateBook, setUpdateBook] = useState(initialBook);
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   useEffect(() => {
     axios
       .get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/books")
@@ -49,8 +70,9 @@ function Book() {
         setLoading(false);
         setBookSwitch(true);
       })
-      .catch((error) => {
-        console.log(error.message);
+      .catch((err) => {
+        setOpen(true);
+        errMessage = err.message; 
       });
 
     axios
@@ -58,8 +80,9 @@ function Book() {
       .then((res) => {
         setAuthors(res.data);
       })
-      .catch((error) => {
-        console.log(error.message);
+      .catch((err) => {
+        setOpen(true);
+        errMessage = err.message; 
       });
 
     axios
@@ -67,8 +90,9 @@ function Book() {
       .then((res) => {
         setPublishers(res.data);
       })
-      .catch((error) => {
-        console.log(error.message);
+      .catch((err) => {
+        setOpen(true);
+        errMessage = err.message; 
       });
 
     axios
@@ -76,8 +100,9 @@ function Book() {
       .then((res) => {
         setCategories(res.data);
       })
-      .catch((error) => {
-        console.log(error.message);
+      .catch((err) => {
+        setOpen(true);
+        errMessage = err.message; 
       });
   }, [bookSwitch]);
 
@@ -96,8 +121,9 @@ function Book() {
         setBookSwitch(false);
         setUpdateBookSwitch(false);
         setUpdateBook(initialBook);
-    }).catch((error) => {
-        console.log(error.message);  
+    }).catch((err) => {
+        setOpen(true);
+        errMessage = err.message;   
     });
   };
 
@@ -111,7 +137,8 @@ function Book() {
         setNewBook(initialBook);
       })
       .catch((err) => {
-        console.log(err);
+        setOpen(true);
+        errMessage = err.message; 
       });
   };
 
@@ -160,12 +187,12 @@ function Book() {
 
     setNewBook((prev) => {
       const categories = checked
-        ? [...prev.categories, category] // Kategori seçildiyse, yeni kategori eklenir.
-        : prev.categories.filter((c) => c.id !== category.id); // Kategori kaldırıldığında, mevcut listeden çıkarılır.
+        ? [...prev.categories, category]
+        : prev.categories.filter((c) => c.id !== category.id); 
 
       return {
         ...prev,
-        categories, // Güncellenmiş kategoriler listesi
+        categories,
       };
     });
   };
@@ -175,12 +202,12 @@ function Book() {
 
     setUpdateBook((prev) => {
       const categories = checked
-        ? [...prev.categories, category] // Kategori seçildiyse, yeni kategori eklenir.
-        : prev.categories.filter((c) => c.id !== category.id); // Kategori kaldırıldığında, mevcut listeden çıkarılır.
+        ? [...prev.categories, category] 
+        : prev.categories.filter((c) => c.id !== category.id); 
 
       return {
         ...prev,
-        categories, // Güncellenmiş kategoriler listesi
+        categories, 
       };
     });
   };
@@ -292,8 +319,8 @@ function Book() {
             key={category.id}
             control={
               <Checkbox
-                checked={updateBookSwitch ? updateBook.categories.some((c) => c.id === category.id) :  newBook.categories.some((c) => c.id === category.id)} // Eğer kategori daha önce seçildiyse işaretlenir.
-                onChange={(e) => updateBookSwitch ?handleUpdateBookCategorySelect(e, category) : handleNewBookCategorySelect(e, category)} // Kategori seçimini handleNewBookCategorySelect ile yönetir.
+                checked={updateBookSwitch ? updateBook.categories.some((c) => c.id === category.id) :  newBook.categories.some((c) => c.id === category.id)} 
+                onChange={(e) => updateBookSwitch ?handleUpdateBookCategorySelect(e, category) : handleNewBookCategorySelect(e, category)} 
               />
             }
             label={category.name}
@@ -308,6 +335,21 @@ function Book() {
       >
         {updateBookSwitch ? "Güncelle" : "Kaydet"}
       </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            ERROR
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            {errMessage}
+          </Typography>
+        </Box>
+      </Modal>
 
       <h2>Books</h2>
       <ul>
