@@ -69,7 +69,8 @@ function Publisher() {
         setNewPublisher(initialState);
       })
       .catch((err) => {
-        console.log(err);
+        setOpen(true);
+        errMessage = err.message;
       });
   };
 
@@ -160,6 +161,7 @@ function Publisher() {
         value={updateSwitch ? updatePublisher.address : newPublisher.address}
         onChange={updateSwitch ? handleUpdateChange : handleChange}
       />
+      <br />
       <br />
       <Button variant="contained" onClick={updateSwitch ? handlePublisherUpdate : handlePublisher}>
         {updateSwitch ? "Güncelle" : "Kaydet"}
