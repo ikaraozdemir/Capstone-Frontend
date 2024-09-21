@@ -8,6 +8,26 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
+// import BasicModal from '../components/BasicModal.jsx';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+let errMessage = "";
+
+
 
 
 function Borrowing() {
@@ -28,11 +48,15 @@ function Borrowing() {
     const [borrowingSwitch,setBorrowingSwitch] = useState(true);
     const [updateBorrowingSwitch, setUpdateBorrowingSwitch] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [borrowing, setBorrowing] = useState([]);
     const [updateBorrowing, setUpdateBorrowing] = useState(initialBorrowing);
     const [books, setBooks] = useState([]);
-    const [returnedBorrowing, setReturnedBorrowing] = useState(initialBorrowing);
     const [returnedBorrowingId, setReturnedBorrowingId] = useState(null);
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    
 
     useEffect (() => {
       axios.get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/borrows")
@@ -41,16 +65,19 @@ function Borrowing() {
           setLoading(false);
           setBorrowingSwitch(true);
       })
-      .catch((error) => {
-          console.log(error.message);  
+      .catch((err) => {
+          console.log(error.message);
+
+
       });
 
       axios.get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/books")
       .then((res) => 
           {setBooks(res.data);
       })
-      .catch((error) => {
-          console.log(error.message);  
+      .catch((err) => {
+        setOpen(true);
+        errMessage = err.message; 
       });
 
     },[borrowingSwitch]);
@@ -67,7 +94,8 @@ function Borrowing() {
         setNewBorrowing(initialBorrowing);
       })
       .catch((err) => {
-        console.log(err);
+        setOpen(true);
+        errMessage = err.message;
       });
     }
 
@@ -78,8 +106,9 @@ function Borrowing() {
           setBorrowingSwitch(false);
           setUpdateBorrowingSwitch(false);
           setUpdateBorrowing(initialBorrowing);
-      }).catch((error) => {
-          console.log(error.message);  
+      }).catch((err) => {
+          setOpen(true);
+          errMessage = err.message; 
       });
 
     }
@@ -132,8 +161,9 @@ function Borrowing() {
               setUpdateBorrowingSwitch(false);
               setUpdateBorrowing(initialBorrowing);
           })
-          .catch((error) => {
-              console.log(error.message);  
+          .catch((err) => {
+            setOpen(true);
+            errMessage = err.message; 
           });
     };
 
@@ -155,8 +185,9 @@ function Borrowing() {
         console.log(res);
         setBorrowingSwitch(false);
         setReturnedBorrowingId(returnedBorrowing.id);
-    }).catch((error) => {
-        console.log(error.message);  
+    }).catch((err) => {
+       setOpen(true);
+       errMessage = err.message; 
     });
 
    };
@@ -210,6 +241,22 @@ function Borrowing() {
     <Button variant="contained" onClick={updateBorrowingSwitch ? handleBorrowingUpdate : handleBorrowing}>
     {updateBorrowingSwitch ? "Güncelle" : "Kaydet"}
     </Button>
+    <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            ERROR
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            {errMessage}
+          </Typography>
+        </Box>
+      </Modal>
+    
     <h2>Borrowing</h2>
     <ul>
         {borrowings?.map((borrowing) => (
@@ -232,6 +279,7 @@ function Borrowing() {
                 <FontAwesomeIcon icon={faBook} style={{ color: "#000000", paddingRight: 5 }} />  
                 return
               </Button>
+              
             )
           }
          
