@@ -5,6 +5,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+
 
 const style = {
   position: "absolute",
@@ -152,11 +154,27 @@ function Category() {
         onChange={updateCategorySwitch ? handleUpdateChange : handleChange}
       />
       <br />
-      <button
+      <Button
+        variant="contained"
         onClick={updateCategorySwitch ? handleCategoryUpdate : handleCategory}
       >
         {updateCategorySwitch ? "Güncelle" : "Kaydet"}
-      </button>
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            ERROR
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            {errMessage}
+          </Typography>
+        </Box>
+      </Modal>
       <h2>Categories</h2>
       <ul>
         {categories?.map((item) => (
