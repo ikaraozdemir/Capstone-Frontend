@@ -8,7 +8,6 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
-// import BasicModal from '../components/BasicModal.jsx';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -26,9 +25,6 @@ const style = {
 };
 
 let errMessage = "";
-
-
-
 
 function Borrowing() {
     const initialBorrowing = {
@@ -56,8 +52,6 @@ function Borrowing() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    
-
     useEffect (() => {
       axios.get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/borrows")
       .then((res) => 
@@ -66,9 +60,8 @@ function Borrowing() {
           setBorrowingSwitch(true);
       })
       .catch((err) => {
-          console.log(error.message);
-
-
+          setOpen(true);
+          errMessage = err.message; 
       });
 
       axios.get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/books")
@@ -82,8 +75,6 @@ function Borrowing() {
 
     },[borrowingSwitch]);
 
-    console.log(books);
-    console.log(borrowings);
 
     const handleBorrowing = () => {
       axios

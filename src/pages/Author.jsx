@@ -2,7 +2,26 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from "@mui/material/Button";
 
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+  
+let errMessage = "";
+  
 function Author() {
     const initialState = {
         name:"",
@@ -16,6 +35,9 @@ function Author() {
     const [newAuthor, setNewAuthor] = useState(initialState);
     const [updateAuthor, setUpdateAuthor] = useState(initialState);
 
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     useEffect(() => {
         axios.get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/authors")
@@ -24,8 +46,9 @@ function Author() {
             setLoading(false);
             setSwitchOn(true);
         })
-        .catch((error) => {
-            console.log(error.message);  
+        .catch((err) => {
+            setOpen(true);
+            errMessage = err.message;   
         });
     },[switchOn]);
 
@@ -36,12 +59,11 @@ function Author() {
         .then((res) => {
             console.log(res);
             setSwitchOn(false);
-            setNewAuthor(
-                initialState
-            );
+            setNewAuthor(initialState);
         })
         .catch((err) => {
-            console.log(err);
+            setOpen(true);
+            errMessage = err.message; 
         });
     };
 
@@ -58,8 +80,9 @@ function Author() {
             .then(() => {
                 setSwitchOn(false); 
             })
-            .catch((error) => {
-                console.log(error.message);  
+            .catch((err) => {
+                setOpen(true);
+                errMessage = err.message;   
             });
     };
     
@@ -72,8 +95,9 @@ function Author() {
             setUpdateSwitch(false);
             setUpdateAuthor(initialState);
         })
-        .catch((error) => {
-            console.log(error.message);  
+        .catch((err) => {
+            setOpen(true);
+            errMessage = err.message;  
         });
     };
 
@@ -114,9 +138,25 @@ function Author() {
     onChange={updateSwitch ? handleUpdateChange : handleChange}/>
 
     <br />
-    <button onClick={updateSwitch ? handleAuthorUpdate : handleAuthor}>
+    <br />
+    <Button variant="contained" onClick={updateSwitch ? handleAuthorUpdate : handleAuthor}>
     {updateSwitch ? "Güncelle" : "Kaydet"}
-    </button>
+    </Button>
+    <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            ERROR
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            {errMessage}
+          </Typography>
+        </Box>
+      </Modal>
     <h2>Authors</h2>
     <ul>{authors.map((item) => (
         <li key={item.id}>
