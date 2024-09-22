@@ -1,22 +1,19 @@
 import './App.css'
-import Publisher from './pages/Publisher'
-import Category from './pages/Category'
-import Author from './pages/Author'
-import Book from './pages/Book'
-import Borrowing from './pages/Borrowing'
-import Welcome from './pages/Welcome'
+
+import ResponsiveAppBar from './components/ResponsiveAppBar'
+import MainArea from './pages/MainArea';
 
 function App() {
   return (
     <>
-    <Welcome/>
-    <Publisher/>
-    <Category/> 
-    <Author/>
-    <Book/>
-    <Borrowing/>
+      <header>
+        <ResponsiveAppBar />
+      </header>
+      <div className="main-area">
+        <MainArea/>
+      </div>
     </>
-  )
+  );
 }
 
 export default App
