@@ -1,3 +1,4 @@
+
 .hero {
     padding: 0;
     margin: 0;
@@ -11,6 +12,7 @@
     position: relative;
     margin-top: 80px; 
     color: #fff;
+
 }
 
 .hero-image {
@@ -18,7 +20,7 @@
     width: 100%;
     
     object-fit: cover;
-    z-index: -1;
+    z-index: 1;
     
 }
 

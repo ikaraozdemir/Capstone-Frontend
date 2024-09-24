@@ -1,5 +1,4 @@
-import { width } from "@fortawesome/free-solid-svg-icons/fa0"
-import ResponsiveAppBar from "../components/ResponsiveAppBar"
+
 import '../css/Welcome.css'
 
 function Welcome() {
