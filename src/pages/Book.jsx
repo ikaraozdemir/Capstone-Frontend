@@ -11,7 +11,6 @@ import Checkbox from "@mui/material/Checkbox";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import "../css/Book.css";
 import BookCard from "../components/BookCard";
 
 const style = {

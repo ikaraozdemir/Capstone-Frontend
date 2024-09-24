@@ -1,0 +1,66 @@
+html,
+body {
+  height: calc(100vh - 80px);
+  margin: 0;
+  padding: 0;
+  background-color: beige;
+}
+
+.main-area {
+  margin-top: 80px;
+  background-color: beige;
+}
+
+.books {
+  padding: 40px;
+  background-color: beige;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.books-container {
+  padding: 40px;
+  background-color: beige;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.book-list > h2 {
+  margin-bottom: 20px;
+  align-self: center;
+}
+
+.book-list > ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  list-style-type: none;
+}
+
+.book-inputs {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 500px;
+}
+
+button {
+  width: 100%;
+  max-width: 500px; /* inputlar için belirlediğiniz max genişlik ile uyumlu olabilir */
+}

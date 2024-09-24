@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AuthorCard from "../components/AuthorCard";
 
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -139,10 +140,9 @@ function Author() {
               variant="contained"
               onClick={updateAuthorSwitch ? handleAuthorUpdate : handleAuthor}
             >
-              {updateAuthorSwitch ? "Güncelle" : "Kaydet"}
+              {updateAuthorSwitch ? "Update" : "Save"}
             </Button>
           </div>
-
           <Modal
             open={open}
             onClose={handleClose}
