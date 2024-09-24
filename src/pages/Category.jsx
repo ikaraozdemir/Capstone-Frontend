@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditIcon from "@mui/icons-material/Edit";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import CategoryCard from "../components/CategoryCard";
 
 
 const style = {
@@ -80,22 +79,8 @@ function Category() {
     }));
   };
 
-  const handleCategoryDelete = (category) => {
-    axios
-      .delete(
-        import.meta.env.VITE_APP_BASE_URL + "/api/v1/categories/" + category.id
-      )
-      .then((res) => {
-        console.log(res);
-        setCategorySwitch(false);
-      })
-      .catch((err) => {
-        setOpen(true);
-        errMessage = err.message;
-      });
-  };
-
   const handleCategoryUpdate = () => {
+    console.log(updateCategory);
     axios
       .put(
         import.meta.env.VITE_APP_BASE_URL +
@@ -115,11 +100,6 @@ function Category() {
       });
   };
 
-  const handleCategoryUpdateSettings = (category) => {
-    setUpdateCategory(category);
-    setUpdateCategorySwitch(true);
-  };
-
   const handleUpdateChange = (e) => {
     const { name, value } = e.target;
     setUpdateCategory((prev) => ({ ...prev, [name]: value }));
@@ -127,70 +107,85 @@ function Category() {
 
   return (
     <>
-      <h1>Category Management</h1>
-      <input
-        type="number"
-        name="id"
-        placeholder="ID"
-        value={updateCategorySwitch ? updateCategory.id : newCategory.id}
-        onChange={updateCategorySwitch ? handleUpdateChange : handleChange}
-      />
-      <input
-        type="text"
-        name="name"
-        placeholder="Name"
-        value={updateCategorySwitch ? updateCategory.name : newCategory.name}
-        onChange={updateCategorySwitch ? handleUpdateChange : handleChange}
-      />
-      <input
-        type="text"
-        name="description"
-        placeholder="Description"
-        value={
-          updateCategorySwitch
-            ? updateCategory.description
-            : newCategory.description
-        }
-        onChange={updateCategorySwitch ? handleUpdateChange : handleChange}
-      />
-      <br />
-      <Button
-        variant="contained"
-        onClick={updateCategorySwitch ? handleCategoryUpdate : handleCategory}
-      >
-        {updateCategorySwitch ? "Güncelle" : "Kaydet"}
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            ERROR
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {errMessage}
-          </Typography>
-        </Box>
-      </Modal>
-      <h2>Categories</h2>
-      <ul>
-        {categories?.map((item) => (
-          <li key={item.id}>
-            <EditIcon
-              style={{ fontSize: 16 }}
-              onClick={() => handleCategoryUpdateSettings(item)}
+      <div className="books">
+        <h1>Category Management</h1>
+        <div className="books-container">
+          <div className="book-inputs">
+            <input
+              type="number"
+              name="id"
+              placeholder="ID"
+              value={updateCategorySwitch ? updateCategory.id : newCategory.id}
+              onChange={
+                updateCategorySwitch ? handleUpdateChange : handleChange
+              }
             />
-            {item.name}
-            <DeleteOutlineIcon
-              style={{ fontSize: 16 }}
-              onClick={() => handleCategoryDelete(item)}
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={
+                updateCategorySwitch ? updateCategory.name : newCategory.name
+              }
+              onChange={
+                updateCategorySwitch ? handleUpdateChange : handleChange
+              }
             />
-          </li>
-        ))}
-      </ul>
+            <input
+              type="text"
+              name="description"
+              placeholder="Description"
+              value={
+                updateCategorySwitch
+                  ? updateCategory.description
+                  : newCategory.description
+              }
+              onChange={
+                updateCategorySwitch ? handleUpdateChange : handleChange
+              }
+            />
+            <br />
+            <Button
+              variant="contained"
+              onClick={
+                updateCategorySwitch ? handleCategoryUpdate : handleCategory
+              }
+            >
+              {updateCategorySwitch ? "Update" : "Save"}
+            </Button>
+          </div>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                ERROR
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                {errMessage}
+              </Typography>
+            </Box>
+          </Modal>
+          <div className="book-list">
+            <h2>Categories</h2>
+            <ul>
+              {categories?.map((category) => (
+                <li key={category.id}>
+                  <CategoryCard
+                    category={category}
+                    setUpdateCategory = {setUpdateCategory}
+                    setUpdateCategorySwitch = {setUpdateCategorySwitch}
+                    setCategorySwitch = {setCategorySwitch}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
