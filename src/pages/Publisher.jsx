@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditIcon from "@mui/icons-material/Edit";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import PublisherCard from "../components/PublisherCard";
 
 const style = {
   position: "absolute",
@@ -30,16 +29,14 @@ function Publisher() {
   };
   const [publishers, setPublishers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [switchOn, setSwitchOn] = useState(true);
-  const [updateSwitch, setUpdateSwitch] = useState(false);
+  const [publisherSwitch, setPublisherSwitch] = useState(true);
+  const [updatePublisherSwitch, setUpdatePublisherSwitch] = useState(false);
   const [newPublisher, setNewPublisher] = useState(initialState);
   const [updatePublisher, setUpdatePublisher] = useState(initialState);
 
-  
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
 
   useEffect(() => {
     axios
@@ -47,13 +44,13 @@ function Publisher() {
       .then((res) => {
         setPublishers(res.data);
         setLoading(false);
-        setSwitchOn(true);
+        setPublisherSwitch(true);
       })
       .catch((err) => {
         setOpen(true);
         errMessage = err.message;
       });
-  }, [switchOn]);
+  }, [publisherSwitch]);
 
   if (loading) return <div>Loading...</div>;
 
@@ -65,7 +62,7 @@ function Publisher() {
       )
       .then((res) => {
         console.log(res);
-        setSwitchOn(false);
+        setPublisherSwitch(false);
         setNewPublisher(initialState);
       })
       .catch((err) => {
@@ -88,7 +85,7 @@ function Publisher() {
         import.meta.env.VITE_APP_BASE_URL + "/api/v1/publishers/" + publisher.id
       )
       .then(() => {
-        setSwitchOn(false);
+        setPublisherSwitch(false);
       })
       .catch((err) => {
         setOpen(true);
@@ -106,19 +103,14 @@ function Publisher() {
       )
       .then((res) => {
         console.log(res);
-        setSwitchOn(false);
-        setUpdateSwitch(false);
+        setPublisherSwitch(false);
+        setUpdatePublisherSwitch(false);
         setUpdatePublisher(initialState);
       })
       .catch((err) => {
         setOpen(true);
         errMessage = err.message;
       });
-  };
-
-  const handlePublisherUpdateSettings = (publisher) => {
-    setUpdatePublisher(publisher);
-    setUpdateSwitch(true);
   };
 
   const handleUpdateChange = (e) => {
@@ -128,75 +120,91 @@ function Publisher() {
 
   return (
     <>
-      <h1>Publisher Management</h1>
-      <input
-        type="number"
-        name="id"
-        placeholder="ID"
-        value={updateSwitch ? updatePublisher.id : newPublisher.id}
-        onChange={updateSwitch ? handleUpdateChange : handleChange}
-      />
-      <input
-        type="text"
-        name="name"
-        placeholder="Name"
-        value={updateSwitch ? updatePublisher.name : newPublisher.name}
-        onChange={updateSwitch ? handleUpdateChange : handleChange}
-      />
-      <input
-        type="number"
-        name="establishmentYear"
-        placeholder="Establishment Year"
-        value={
-          updateSwitch
-            ? updatePublisher.establishmentYear
-            : newPublisher.establishmentYear
-        }
-        onChange={updateSwitch ? handleUpdateChange : handleChange}
-      />
-      <input
-        type="text"
-        name="address"
-        placeholder="Address"
-        value={updateSwitch ? updatePublisher.address : newPublisher.address}
-        onChange={updateSwitch ? handleUpdateChange : handleChange}
-      />
-      <br />
-      <br />
-      <Button variant="contained" onClick={updateSwitch ? handlePublisherUpdate : handlePublisher}>
-        {updateSwitch ? "Güncelle" : "Kaydet"}
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            ERROR
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {errMessage}
-          </Typography>
-        </Box>
-      </Modal>
-      <h2>Publishers</h2>
-      <ul>
-        {publishers?.map((item) => (
-          <li key={item.id}>
-            <EditIcon
-              style={{ fontSize: 16 }}
-              onClick={() => handlePublisherUpdateSettings(item)}
-            />
-            {item.name}
-            <DeleteOutlineIcon
-              style={{ fontSize: 16 }}
-              onClick={() => handlePublisherDelete(item)}
-            />
-          </li>
-        ))}
-      </ul>
+      <div className="books">
+        <h1>Publisher Management</h1>
+        <div className="books-container">
+        <div className="book-inputs">
+          <input
+            type="number"
+            name="id"
+            placeholder="ID"
+            value={updatePublisherSwitch ? updatePublisher.id : newPublisher.id}
+            onChange={updatePublisherSwitch ? handleUpdateChange : handleChange}
+          />
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={
+              updatePublisherSwitch ? updatePublisher.name : newPublisher.name
+            }
+            onChange={updatePublisherSwitch ? handleUpdateChange : handleChange}
+          />
+          <input
+            type="number"
+            name="establishmentYear"
+            placeholder="Establishment Year"
+            value={
+              updatePublisherSwitch
+                ? updatePublisher.establishmentYear
+                : newPublisher.establishmentYear
+            }
+            onChange={updatePublisherSwitch ? handleUpdateChange : handleChange}
+          />
+          <input
+            type="text"
+            name="address"
+            placeholder="Address"
+            value={
+              updatePublisherSwitch
+                ? updatePublisher.address
+                : newPublisher.address
+            }
+            onChange={updatePublisherSwitch ? handleUpdateChange : handleChange}
+          />
+          <br />
+          <br />
+          <Button
+            variant="contained"
+            onClick={
+              updatePublisherSwitch ? handlePublisherUpdate : handlePublisher
+            }
+          >
+            {updatePublisherSwitch ? "Güncelle" : "Kaydet"}
+          </Button>
+        </div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              ERROR
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              {errMessage}
+            </Typography>
+          </Box>
+        </Modal>
+        <div className="book-list">
+          <h2>Publishers</h2>
+          <ul>
+            {publishers?.map((publisher) => (
+              <li key={publisher.id}>
+                <PublisherCard
+                  publisher={publisher}
+                  setUpdatePublisher={setUpdatePublisher}
+                  setUpdatePublisherSwitch={setUpdatePublisherSwitch}
+                  setPublisherSwitch={setPublisherSwitch}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+        </div>
+      </div>
     </>
   );
 }

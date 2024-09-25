@@ -7,7 +7,6 @@ import axios from "axios";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -47,19 +46,17 @@ function Book() {
     },
     categories: [],
   };
+
   const [books, setBooks] = useState([]);
   const [newBook, setNewBook] = useState(initialBook);
   const [bookSwitch, setBookSwitch] = useState(true);
   const [updateBookSwitch, setUpdateBookSwitch] = useState(false);
-
   const [loading, setLoading] = useState(true);
   const [authors, setAuthors] = useState([]);
   const [publishers, setPublishers] = useState([]);
   const [categories, setCategories] = useState([]);
   const [updateBook, setUpdateBook] = useState(initialBook);
-
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
@@ -189,7 +186,6 @@ function Book() {
 
   const handleNewBookCategorySelect = (e, category) => {
     const { checked } = e.target;
-
     setNewBook((prev) => {
       const categories = checked
         ? [...prev.categories, category]

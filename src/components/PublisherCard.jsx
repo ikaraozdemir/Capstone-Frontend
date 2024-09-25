@@ -8,25 +8,26 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 
-export default function CategoryCard({
-  category,
-  setUpdateCategory,
-  setUpdateCategorySwitch,
-  setCategorySwitch,
+export default function PublisherCard({
+  publisher,
+  setUpdatePublisher,
+  setUpdatePublisherSwitch,
+  setPublisherSwitch,
 }) {
-  const handleCategoryUpdateSettings = (category) => {
-    setUpdateCategory(category);
-    setUpdateCategorySwitch(true);
-  };
 
-  const handleCategoryDelete = (category) => {
+    const handlePublisherUpdateSettings = (publisher) => {
+        setUpdatePublisher(publisher);
+        setUpdatePublisherSwitch(true);
+      };
+
+  const handlePublisherDelete = (publisher) => {
     axios
       .delete(
-        import.meta.env.VITE_APP_BASE_URL + "/api/v1/categories/" + category.id
+        import.meta.env.VITE_APP_BASE_URL + "/api/v1/publishers/" + publisher.id
       )
       .then((res) => {
         console.log(res);
-        setCategorySwitch(false);
+        setPublisherSwitch(false);
       })
       .catch((err) => {
         setOpen(true);
@@ -54,7 +55,7 @@ export default function CategoryCard({
           cursor: "pointer",
           fontSize: 24,
         }}
-        onClick={() => handleCategoryUpdateSettings(category)}
+        onClick={() => handlePublisherUpdateSettings(publisher)}
       />
 
       <div style={{ position: "relative", textAlign: "center" }}>
@@ -71,13 +72,13 @@ export default function CategoryCard({
             padding: "4px 8px",
           }}
         >
-          {category.name}
+          {publisher.name}
         </Typography>
       </div>
 
       <CardContent>
       <Typography gutterBottom variant="h5" component="div" sx={{textAlign:'center'}}>
-          {category.name}
+          {publisher.name}
         </Typography>
         <Typography
           variant="body2"
@@ -108,7 +109,7 @@ export default function CategoryCard({
             borderTopLeftRadius: 0,
             borderTopRightRadius: 0,
           }}
-          onClick={() => handleCategoryDelete(category)}
+          onClick={() => handlePublisherDelete(publisher)}
         >
           <DeleteOutlineIcon style={{ fontSize: 24, marginRight: "8px" }} />
           DELETE

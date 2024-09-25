@@ -50,7 +50,7 @@ function ResponsiveAppBar() {
             <Typography
               variant="h6"
               noWrap
-              component="a"
+              // component="a"
               href="#app-bar-with-responsive-menu"
               sx={{
                 fontFamily: "monospace",
@@ -65,7 +65,7 @@ function ResponsiveAppBar() {
             </Typography>
           </NavLink>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, justifyContent: 'end', ml: 'auto' }}>
+          <Box sx={{display: { xs: "flex", md: "none" }, justifyContent: 'end', ml: 'auto' }}>
             <IconButton
               size="large"
               aria-label="account of current user"

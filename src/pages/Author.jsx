@@ -33,9 +33,7 @@ function Author() {
   const [updateAuthorSwitch, setUpdateAuthorSwitch] = useState(false);
   const [newAuthor, setNewAuthor] = useState(initialAuthor);
   const [updateAuthor, setUpdateAuthor] = useState(initialAuthor);
-
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
