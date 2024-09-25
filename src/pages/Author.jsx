@@ -5,7 +5,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AuthorCard from "../components/AuthorCard";
-
+import Snackbar from "@mui/material/Snackbar";
+import LinearBuffer from "../components/LinearBuffer";
 
 const style = {
   position: "absolute",
@@ -35,6 +36,8 @@ function Author() {
   const [updateAuthor, setUpdateAuthor] = useState(initialAuthor);
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
+  const [snackOpen, setSnackOpen] = useState(false);
+  const [snackMessage, setSnackMessage] = useState("");
 
   useEffect(() => {
     axios
@@ -50,7 +53,15 @@ function Author() {
       });
   }, [authorSwitch]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <div>
+        <Box sx={{ width: "100%" }}>
+          <LinearBuffer/>
+        </Box>
+      </div>
+    );
+  }
 
   const handleAuthor = () => {
     axios
@@ -99,6 +110,9 @@ function Author() {
     setUpdateAuthor((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleCloseSnack = () => {
+    setSnackOpen(false);
+  };
   return (
     <>
       <div className="books">
@@ -156,6 +170,13 @@ function Author() {
               </Typography>
             </Box>
           </Modal>
+          <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackOpen}
+        onClose={handleCloseSnack}
+        message={snackMessage}
+        autoHideDuration={6000}
+      />
           <div className="book-list">
             <h2>Authors</h2>
             <ul>
@@ -163,7 +184,7 @@ function Author() {
                 <li key={author.id}>
                   <AuthorCard
                     author={author}
-                    setUpdateauthor={setUpdateAuthor}
+                    setUpdateAuthor={setUpdateAuthor}
                     setUpdateAuthorSwitch={setUpdateAuthorSwitch}
                     setAuthorSwitch={setAuthorSwitch}
                     initiaAuthor={initialAuthor}

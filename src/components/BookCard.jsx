@@ -30,8 +30,9 @@ export default function BookCard({
         setUpdateBookSwitch(false);
         setUpdateBook(initialBook);
       })
-      .catch((error) => {
-        console.log(error.message);
+      .catch((err) => {
+        setOpen(true);
+        errMessage = err.message;
       });
   };
 

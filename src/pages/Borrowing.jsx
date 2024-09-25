@@ -8,6 +8,9 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import BorrowingCard from "../components/BorrowingCard";
+import Snackbar from "@mui/material/Snackbar";
+import LinearBuffer from "../components/LinearBuffer";
+
 
 const style = {
   position: "absolute",
@@ -44,10 +47,10 @@ function Borrowing() {
   const [updateBorrowing, setUpdateBorrowing] = useState(initialBorrowing);
   const [books, setBooks] = useState([]);
   const [returnedBorrowingId, setReturnedBorrowingId] = useState("");
-
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [snackOpen, setSnackOpen] = useState(false);
+  const [snackMessage, setSnackMessage] = useState("");
 
   useEffect(() => {
     axios
@@ -66,18 +69,30 @@ function Borrowing() {
       .get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/books")
       .then((res) => {
         setBooks(res.data);
+        setLoading(false);
+
       })
       .catch((err) => {
         setOpen(true);
+        setLoading(false);
         errMessage = err.message;
       });
   }, [borrowingSwitch]);
 
+  if (loading) {
+    return (
+      <div>
+        <Box sx={{ width: "100%" }}>
+          <LinearBuffer/>
+        </Box>
+      </div>
+    );
+  }
+
   const handleBorrowing = () => {
     axios
-      .post(import.meta.env.VITE_APP_BASE_URL + "/api/v1/borrow", newBorrowing)
+      .post(import.meta.env.VITE_APP_BASE_URL + "/api/v1/borrows", newBorrowing)
       .then((res) => {
-        console.log(res);
         setBorrowingSwitch(false);
         setNewBorrowing(initialBorrowing);
       })
@@ -142,6 +157,9 @@ function Borrowing() {
   };
 
   console.log(newBorrowing);
+  const handleCloseSnack = () => {
+    setSnackOpen(false);
+  };
 
   return (
     <div className="books">
@@ -236,6 +254,13 @@ function Borrowing() {
             </Typography>
           </Box>
         </Modal>
+        <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackOpen}
+        onClose={handleCloseSnack}
+        message={snackMessage}
+        autoHideDuration={6000}
+      />
 
         <div className="book-list">
           <h2>Borrowing</h2>

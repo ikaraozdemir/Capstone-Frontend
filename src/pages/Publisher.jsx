@@ -5,6 +5,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import PublisherCard from "../components/PublisherCard";
+import Snackbar from "@mui/material/Snackbar";
+import LinearBuffer from "../components/LinearBuffer";
 
 const style = {
   position: "absolute",
@@ -33,10 +35,10 @@ function Publisher() {
   const [updatePublisherSwitch, setUpdatePublisherSwitch] = useState(false);
   const [newPublisher, setNewPublisher] = useState(initialState);
   const [updatePublisher, setUpdatePublisher] = useState(initialState);
-
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [snackOpen, setSnackOpen] = useState(false);
+  const [snackMessage, setSnackMessage] = useState("");
 
   useEffect(() => {
     axios
@@ -45,6 +47,7 @@ function Publisher() {
         setPublishers(res.data);
         setLoading(false);
         setPublisherSwitch(true);
+        setLoading(false);
       })
       .catch((err) => {
         setOpen(true);
@@ -52,7 +55,15 @@ function Publisher() {
       });
   }, [publisherSwitch]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <div>
+        <Box sx={{ width: "100%" }}>
+          <LinearBuffer/>
+        </Box>
+      </div>
+    );
+  }
 
   const handlePublisher = () => {
     axios
@@ -64,6 +75,8 @@ function Publisher() {
         console.log(res);
         setPublisherSwitch(false);
         setNewPublisher(initialState);
+        setSnackMessage("Publisher added successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);
@@ -79,19 +92,7 @@ function Publisher() {
     }));
   };
 
-  const handlePublisherDelete = (publisher) => {
-    axios
-      .delete(
-        import.meta.env.VITE_APP_BASE_URL + "/api/v1/publishers/" + publisher.id
-      )
-      .then(() => {
-        setPublisherSwitch(false);
-      })
-      .catch((err) => {
-        setOpen(true);
-        errMessage = err.message;
-      });
-  };
+
 
   const handlePublisherUpdate = () => {
     axios
@@ -118,19 +119,17 @@ function Publisher() {
     setUpdatePublisher((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleCloseSnack = () => {
+    setSnackOpen(false);
+  };
+
   return (
     <>
       <div className="books">
         <h1>Publisher Management</h1>
         <div className="books-container">
         <div className="book-inputs">
-          <input
-            type="number"
-            name="id"
-            placeholder="ID"
-            value={updatePublisherSwitch ? updatePublisher.id : newPublisher.id}
-            onChange={updatePublisherSwitch ? handleUpdateChange : handleChange}
-          />
+         
           <input
             type="text"
             name="name"
@@ -188,6 +187,13 @@ function Publisher() {
             </Typography>
           </Box>
         </Modal>
+        <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackOpen}
+        onClose={handleCloseSnack}
+        message={snackMessage}
+        autoHideDuration={6000}
+      />
         <div className="book-list">
           <h2>Publishers</h2>
           <ul>

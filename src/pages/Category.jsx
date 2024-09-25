@@ -5,6 +5,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CategoryCard from "../components/CategoryCard";
+import Snackbar from "@mui/material/Snackbar";
+import LinearBuffer from "../components/LinearBuffer";
 
 
 const style = {
@@ -33,10 +35,10 @@ function Category() {
   const [updateCategorySwitch, setUpdateCategorySwitch] = useState(false);
   const [newCategory, setNewCategory] = useState(initialCategory);
   const [updateCategory, setUpdateCategory] = useState(initialCategory);
-
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [snackOpen, setSnackOpen] = useState(false);
+  const [snackMessage, setSnackMessage] = useState("");
 
   useEffect(() => {
     axios
@@ -52,7 +54,15 @@ function Category() {
       });
   }, [categorySwitch]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <div>
+        <Box sx={{ width: "100%" }}>
+          <LinearBuffer/>
+        </Box>
+      </div>
+    );
+  }
 
   const handleCategory = () => {
     axios
@@ -105,21 +115,17 @@ function Category() {
     setUpdateCategory((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleCloseSnack = () => {
+    setSnackOpen(false);
+  };
+
   return (
     <>
       <div className="books">
         <h1>Category Management</h1>
         <div className="books-container">
           <div className="book-inputs">
-            <input
-              type="number"
-              name="id"
-              placeholder="ID"
-              value={updateCategorySwitch ? updateCategory.id : newCategory.id}
-              onChange={
-                updateCategorySwitch ? handleUpdateChange : handleChange
-              }
-            />
+
             <input
               type="text"
               name="name"
@@ -169,6 +175,13 @@ function Category() {
               </Typography>
             </Box>
           </Modal>
+          <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackOpen}
+        onClose={handleCloseSnack}
+        message={snackMessage}
+        autoHideDuration={6000}
+      />
           <div className="book-list">
             <h2>Categories</h2>
             <ul>

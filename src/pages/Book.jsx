@@ -11,6 +11,9 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import BookCard from "../components/BookCard";
+import Snackbar from "@mui/material/Snackbar";
+import LinearBuffer from "../components/LinearBuffer";
+
 
 const style = {
   position: "absolute",
@@ -58,6 +61,8 @@ function Book() {
   const [updateBook, setUpdateBook] = useState(initialBook);
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
+  const [snackOpen, setSnackOpen] = useState(false);
+  const [snackMessage, setSnackMessage] = useState("");
 
   useEffect(() => {
     axios
@@ -76,6 +81,7 @@ function Book() {
       .get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/authors")
       .then((res) => {
         setAuthors(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         setOpen(true);
@@ -86,6 +92,7 @@ function Book() {
       .get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/publishers")
       .then((res) => {
         setPublishers(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         setOpen(true);
@@ -96,12 +103,23 @@ function Book() {
       .get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/categories")
       .then((res) => {
         setCategories(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         setOpen(true);
         errMessage = err.message;
       });
   }, [bookSwitch]);
+
+  if (loading) {
+    return (
+      <div>
+        <Box sx={{ width: "100%" }}>
+          <LinearBuffer/>
+        </Box>
+      </div>
+    );
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -218,20 +236,16 @@ function Book() {
     setUpdateBook((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleCloseSnack = () => {
+    setSnackOpen(false);
+  };
+
   return (
     <div className="books">
       <h1>Book Management</h1>
       <div className="books-container">
         <div className="book-inputs">
-          <TextField
-            id="standard-basic"
-            label="ID"
-            variant="standard"
-            name="id"
-            type="number"
-            value={updateBookSwitch ? updateBook.id : newBook.id}
-            onChange={updateBookSwitch ? handleUpdateChange : handleChange}
-          />
+
           <TextField
             id="standard-basic"
             label="Name"
@@ -363,6 +377,13 @@ function Book() {
             </Typography>
           </Box>
         </Modal>
+        <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackOpen}
+        onClose={handleCloseSnack}
+        message={snackMessage}
+        autoHideDuration={6000}
+      />
         <div className="book-list">
           <h2>Books</h2>
           <ul>

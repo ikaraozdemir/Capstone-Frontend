@@ -31,8 +31,9 @@ export default function AuthorCard({
         setUpdateAuthorSwitch(false);
         setUpdateAuthor(initialAuthor);
       })
-      .catch((error) => {
-        console.log(error.message);
+      .catch((err) => {
+        setOpen(true);
+        errMessage = err.message;
       });
   };
 
