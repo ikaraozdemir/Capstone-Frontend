@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import CategoryCard from "../components/CategoryCard";
 import Snackbar from "@mui/material/Snackbar";
 import LinearBuffer from "../components/LinearBuffer";
+import TextField from "@mui/material/TextField";
 
 
 const style = {
@@ -58,7 +59,7 @@ function Category() {
     return (
       <div>
         <Box sx={{ width: "100%" }}>
-          <LinearBuffer/>
+          <LinearBuffer />
         </Box>
       </div>
     );
@@ -125,11 +126,12 @@ function Category() {
         <h1>Category Management</h1>
         <div className="books-container">
           <div className="book-inputs">
-
-            <input
+            <TextField
+              id="standard-basic"
+              label="Name"
+              variant="standard"
               type="text"
               name="name"
-              placeholder="Name"
               value={
                 updateCategorySwitch ? updateCategory.name : newCategory.name
               }
@@ -137,10 +139,12 @@ function Category() {
                 updateCategorySwitch ? handleUpdateChange : handleChange
               }
             />
-            <input
+            <TextField
+              id="standard-basic"
+              label="Description"
+              variant="standard"
               type="text"
               name="description"
-              placeholder="Description"
               value={
                 updateCategorySwitch
                   ? updateCategory.description
@@ -151,11 +155,13 @@ function Category() {
               }
             />
             <br />
+            <br />
             <Button
               variant="contained"
               onClick={
                 updateCategorySwitch ? handleCategoryUpdate : handleCategory
               }
+              sx = {{fontSize:"inherit" ,fontFamily:"inherit", backgroundColor:"rgb(92, 64, 51)"}}
             >
               {updateCategorySwitch ? "Update" : "Save"}
             </Button>
@@ -176,12 +182,12 @@ function Category() {
             </Box>
           </Modal>
           <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={snackOpen}
-        onClose={handleCloseSnack}
-        message={snackMessage}
-        autoHideDuration={6000}
-      />
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={snackOpen}
+            onClose={handleCloseSnack}
+            message={snackMessage}
+            autoHideDuration={6000}
+          />
           <div className="book-list">
             <h2>Categories</h2>
             <ul>
@@ -189,9 +195,9 @@ function Category() {
                 <li key={category.id}>
                   <CategoryCard
                     category={category}
-                    setUpdateCategory = {setUpdateCategory}
-                    setUpdateCategorySwitch = {setUpdateCategorySwitch}
-                    setCategorySwitch = {setCategorySwitch}
+                    setUpdateCategory={setUpdateCategory}
+                    setUpdateCategorySwitch={setUpdateCategorySwitch}
+                    setCategorySwitch={setCategorySwitch}
                   />
                 </li>
               ))}

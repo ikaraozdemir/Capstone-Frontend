@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import PublisherCard from "../components/PublisherCard";
 import Snackbar from "@mui/material/Snackbar";
 import LinearBuffer from "../components/LinearBuffer";
+import TextField from "@mui/material/TextField";
 
 const style = {
   position: "absolute",
@@ -59,7 +60,7 @@ function Publisher() {
     return (
       <div>
         <Box sx={{ width: "100%" }}>
-          <LinearBuffer/>
+          <LinearBuffer />
         </Box>
       </div>
     );
@@ -91,8 +92,6 @@ function Publisher() {
       [name]: value,
     }));
   };
-
-
 
   const handlePublisherUpdate = () => {
     axios
@@ -128,87 +127,99 @@ function Publisher() {
       <div className="books">
         <h1>Publisher Management</h1>
         <div className="books-container">
-        <div className="book-inputs">
-         
-          <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            value={
-              updatePublisherSwitch ? updatePublisher.name : newPublisher.name
-            }
-            onChange={updatePublisherSwitch ? handleUpdateChange : handleChange}
-          />
-          <input
-            type="number"
-            name="establishmentYear"
-            placeholder="Establishment Year"
-            value={
-              updatePublisherSwitch
-                ? updatePublisher.establishmentYear
-                : newPublisher.establishmentYear
-            }
-            onChange={updatePublisherSwitch ? handleUpdateChange : handleChange}
-          />
-          <input
-            type="text"
-            name="address"
-            placeholder="Address"
-            value={
-              updatePublisherSwitch
-                ? updatePublisher.address
-                : newPublisher.address
-            }
-            onChange={updatePublisherSwitch ? handleUpdateChange : handleChange}
-          />
-          <br />
-          <br />
-          <Button
-            variant="contained"
-            onClick={
-              updatePublisherSwitch ? handlePublisherUpdate : handlePublisher
-            }
+          <div className="book-inputs">
+            <TextField
+              id="standard-basic"
+              label="Name"
+              variant="standard"
+              type="text"
+              name="name"
+              value={
+                updatePublisherSwitch ? updatePublisher.name : newPublisher.name
+              }
+              onChange={
+                updatePublisherSwitch ? handleUpdateChange : handleChange
+              }
+            />
+            <TextField
+              id="standard-basic"
+              label="Establishment Year"
+              variant="standard"
+              type="number"
+              name="establishmentYear"
+              value={
+                updatePublisherSwitch
+                  ? updatePublisher.establishmentYear
+                  : newPublisher.establishmentYear
+              }
+              onChange={
+                updatePublisherSwitch ? handleUpdateChange : handleChange
+              }
+            />
+            <TextField
+              id="standard-basic"
+              label="Address"
+              variant="standard"
+              type="text"
+              name="address"
+              value={
+                updatePublisherSwitch
+                  ? updatePublisher.address
+                  : newPublisher.address
+              }
+              onChange={
+                updatePublisherSwitch ? handleUpdateChange : handleChange
+              }
+            />
+            <br />
+            <br />
+            <Button
+              variant="contained"
+              onClick={
+                updatePublisherSwitch ? handlePublisherUpdate : handlePublisher
+              }
+              sx = {{fontSize:"inherit" ,fontFamily:"inherit", backgroundColor:"rgb(92, 64, 51)"}}
+            >
+              {updatePublisherSwitch ? "Update" : "Save"}
+            </Button>
+          </div>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
           >
-            {updatePublisherSwitch ? "Güncelle" : "Kaydet"}
-          </Button>
-        </div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              ERROR
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {errMessage}
-            </Typography>
-          </Box>
-        </Modal>
-        <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={snackOpen}
-        onClose={handleCloseSnack}
-        message={snackMessage}
-        autoHideDuration={6000}
-      />
-        <div className="book-list">
-          <h2>Publishers</h2>
-          <ul>
-            {publishers?.map((publisher) => (
-              <li key={publisher.id}>
-                <PublisherCard
-                  publisher={publisher}
-                  setUpdatePublisher={setUpdatePublisher}
-                  setUpdatePublisherSwitch={setUpdatePublisherSwitch}
-                  setPublisherSwitch={setPublisherSwitch}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                ERROR
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                {errMessage}
+              </Typography>
+            </Box>
+          </Modal>
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={snackOpen}
+            onClose={handleCloseSnack}
+            message={snackMessage}
+            autoHideDuration={6000}
+          />
+          <div className="book-list">
+            <h2>Publishers</h2>
+            <ul>
+              {publishers?.map((publisher) => (
+                <li key={publisher.id}>
+                  <PublisherCard
+                    publisher={publisher}
+                    setUpdatePublisher={setUpdatePublisher}
+                    setUpdatePublisherSwitch={setUpdatePublisherSwitch}
+                    setPublisherSwitch={setPublisherSwitch}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </>

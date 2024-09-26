@@ -7,6 +7,8 @@ import Button from "@mui/material/Button";
 import AuthorCard from "../components/AuthorCard";
 import Snackbar from "@mui/material/Snackbar";
 import LinearBuffer from "../components/LinearBuffer";
+import TextField from "@mui/material/TextField";
+
 
 const style = {
   position: "absolute",
@@ -57,7 +59,7 @@ function Author() {
     return (
       <div>
         <Box sx={{ width: "100%" }}>
-          <LinearBuffer/>
+          <LinearBuffer />
         </Box>
       </div>
     );
@@ -119,14 +121,18 @@ function Author() {
         <h1>Author Management</h1>
         <div className="books-container">
           <div className="book-inputs">
-            <input
-              type="text"
+            <TextField
+              id="standard-basic"
+              label="Name"
+              variant="standard"
               name="name"
-              placeholder="Name"
               value={updateAuthorSwitch ? updateAuthor.name : newAuthor.name}
               onChange={updateAuthorSwitch ? handleUpdateChange : handleChange}
             />
-            <input
+          <br />
+            <TextField
+              id="standard-basic"
+              variant="standard"
               type="date"
               name="birthDate"
               value={
@@ -136,10 +142,12 @@ function Author() {
               }
               onChange={updateAuthorSwitch ? handleUpdateChange : handleChange}
             />
-            <input
-              type="text"
+                    <TextField
+            id="standard-basic"
+            label="Country"
+            variant="standard"
+            type="number"
               name="country"
-              placeholder="Country"
               value={
                 updateAuthorSwitch ? updateAuthor.country : newAuthor.country
               }
@@ -151,6 +159,11 @@ function Author() {
             <Button
               variant="contained"
               onClick={updateAuthorSwitch ? handleAuthorUpdate : handleAuthor}
+              sx={{
+                fontSize: "inherit",
+                fontFamily: "inherit",
+                backgroundColor: "rgb(92, 64, 51)",
+              }}
             >
               {updateAuthorSwitch ? "Update" : "Save"}
             </Button>
@@ -171,12 +184,12 @@ function Author() {
             </Box>
           </Modal>
           <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={snackOpen}
-        onClose={handleCloseSnack}
-        message={snackMessage}
-        autoHideDuration={6000}
-      />
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={snackOpen}
+            onClose={handleCloseSnack}
+            message={snackMessage}
+            autoHideDuration={6000}
+          />
           <div className="book-list">
             <h2>Authors</h2>
             <ul>

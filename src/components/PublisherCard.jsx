@@ -8,6 +8,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 
+
 export default function PublisherCard({
   publisher,
   setUpdatePublisher,
@@ -37,15 +38,17 @@ export default function PublisherCard({
 
   return (
     <Card
-      sx={{
-        maxWidth: 345,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-        
-      }}
+    sx={{
+      maxWidth: 345,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      position: "relative",
+      minHeight: 210,
+      paddingLeft:3,
+      paddingRight:3
+    }}
     >
       <EditIcon
         sx={{
@@ -53,65 +56,64 @@ export default function PublisherCard({
           top: 8,
           right: 8,
           cursor: "pointer",
-          fontSize: 24,
+          fontSize: 20,
         }}
         onClick={() => handlePublisherUpdateSettings(publisher)}
       />
 
-      <div style={{ position: "relative", textAlign: "center" }}>
-
-        <Typography
-          variant="h6"
+      <CardContent sx={{ paddingBottom: 1 }}>
+      <Typography
+          gutterBottom
+          variant="h5"
           component="div"
-          sx={{
-            width: "max-content",
-            position: "absolute",
-            bottom: 144,
-            left: "50%",
-            transform: "translateX(-40%)",
-            padding: "4px 8px",
-          }}
+          sx={{ textAlign: "center", fontFamily: "monospace" }}
         >
           {publisher.name}
         </Typography>
-      </div>
-
-      <CardContent>
-      <Typography gutterBottom variant="h5" component="div" sx={{textAlign:'center'}}>
-          {publisher.name}
-        </Typography>
+        <hr />
+        <br />
         <Typography
-          variant="body2"
+          variant="body3"
           sx={{ color: "text.secondary", textAlign: "center" }}
         >
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          <span style={{ fontWeight: 600, color: "black" }}>
+            Establishment Year:{" "}
+          </span>
+          {publisher.establishmentYear}
+          <br />
+          <span style={{ fontWeight: 600, color: "black" }}>
+            Address:{" "}
+          </span>
+          {publisher.address}
+          <br />
         </Typography>
+        <br />
+        <hr />
       </CardContent>
 
       <CardActions
         sx={{
+          display: "flex",
+          flexDirection: "row",
           width: "100%",
           padding: 0,
-          marginTop: "auto",
+          margin: 0,
         }}
       >
         <Button
-          size="large"
           fullWidth
           sx={{
-            fontSize: 14,
-            color: "black",
+            fontSize: 12,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "red",
             borderTopLeftRadius: 0,
             borderTopRightRadius: 0,
+            color: "rgb(128, 0, 32)",
           }}
           onClick={() => handlePublisherDelete(publisher)}
         >
-          <DeleteOutlineIcon style={{ fontSize: 24, marginRight: "8px" }} />
+          <DeleteOutlineIcon style={{ fontSize: 24, color: "rgb(128, 0, 32)" }} />
           DELETE
         </Button>
       </CardActions>

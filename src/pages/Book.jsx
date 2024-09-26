@@ -357,6 +357,7 @@ function Book() {
           <Button
             variant="contained"
             onClick={updateBookSwitch ? handleBookUpdate : handleBook}
+            sx = {{fontSize:"inherit" ,fontFamily:"inherit", backgroundColor:"rgb(92, 64, 51)"}}
           >
             {updateBookSwitch ? "Update" : "Save"}
           </Button>

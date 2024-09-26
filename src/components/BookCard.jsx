@@ -9,13 +9,12 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 
-
 export default function BookCard({
   book,
   setUpdateBook,
   setUpdateBookSwitch,
   setBookSwitch,
-  initialBook
+  initialBook,
 }) {
   const handleBookUpdateSettings = (book) => {
     setUpdateBook(book);
@@ -45,7 +44,10 @@ export default function BookCard({
         alignItems: "center",
         justifyContent: "center",
         position: "relative",
+        minHeight: 440,
         paddingTop: 5,
+        paddingLeft: 3,
+        paddingRight: 3,
       }}
     >
       <EditIcon
@@ -54,7 +56,7 @@ export default function BookCard({
           top: 8,
           right: 8,
           cursor: "pointer",
-          fontSize: 24,
+          fontSize: 20,
         }}
         onClick={() => handleBookUpdateSettings(book)}
       />
@@ -78,6 +80,7 @@ export default function BookCard({
             left: "50%",
             transform: "translateX(-40%)",
             padding: "4px 8px",
+            fontFamily: "monospace",
           }}
         >
           {book.name}
@@ -85,41 +88,56 @@ export default function BookCard({
       </div>
 
       <CardContent>
+        <hr />
+        <br />
         <Typography
-          variant="body2"
+          variant="body3"
           sx={{ color: "text.secondary", textAlign: "center" }}
         >
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          <span style={{ fontWeight: 600, color: "black" }}>Author: </span>
+          {book.author.name}
+          <br />
+          <span style={{ fontWeight: 600, color: "black" }}>
+            Publication Year:{" "}
+          </span>
+          {book.publicationYear}
+          <br />
+          <span style={{ fontWeight: 600, color: "black" }}>Publisher: </span>
+          {book.publisher.name}
+          <br />
+          <br />
         </Typography>
+        <hr />
       </CardContent>
+
       <CardActions
         sx={{
+          display: "flex",
+          flexDirection: "row",
           width: "100%",
-          padding: 0, 
-          marginTop: "auto",
+          padding: 0,
+          margin: 0,
         }}
       >
         <Button
-          size="large"
           fullWidth
           sx={{
-            fontSize: 14,
-            color: "black",
+            fontSize: 12,
             display: "flex",
-            justifyContent: "center", 
+            justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "red", 
-            borderTopLeftRadius:0,
-            borderTopRightRadius:0
+            borderTopLeftRadius: 0,
+            borderTopRightRadius: 0,
+            color: "rgb(128, 0, 32)",
           }}
           onClick={() => handleBookDelete(book)}
         >
-          <DeleteOutlineIcon style={{ fontSize: 24, marginRight: "8px" }} />
+          <DeleteOutlineIcon
+            style={{ fontSize: 24, color: "rgb(128, 0, 32)" }}
+          />
           DELETE
         </Button>
       </CardActions>
-
     </Card>
   );
 }
