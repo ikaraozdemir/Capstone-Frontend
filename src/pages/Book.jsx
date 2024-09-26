@@ -140,6 +140,8 @@ function Book() {
         setBookSwitch(false);
         setUpdateBookSwitch(false);
         setUpdateBook(initialBook);
+        setSnackMessage("Book updated successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);
@@ -155,6 +157,8 @@ function Book() {
         console.log(res);
         setBookSwitch(false);
         setNewBook(initialBook);
+        setSnackMessage("Book added successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);
@@ -383,7 +387,7 @@ function Book() {
         open={snackOpen}
         onClose={handleCloseSnack}
         message={snackMessage}
-        autoHideDuration={6000}
+        autoHideDuration={3000}
       />
         <div className="book-list">
           <h2>Books</h2>
@@ -396,6 +400,8 @@ function Book() {
                   setUpdateBookSwitch={setUpdateBookSwitch}
                   setBookSwitch={setBookSwitch}
                   initialBook={initialBook}
+                  setSnackOpen={setSnackOpen}
+                  setSnackMessage={setSnackMessage}
                 />
               </li>
             ))}

@@ -9,12 +9,15 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 
+
 export default function BookCard({
   book,
   setUpdateBook,
   setUpdateBookSwitch,
   setBookSwitch,
   initialBook,
+  setSnackOpen,
+  setSnackMessage
 }) {
   const handleBookUpdateSettings = (book) => {
     setUpdateBook(book);
@@ -28,6 +31,8 @@ export default function BookCard({
         setBookSwitch(false);
         setUpdateBookSwitch(false);
         setUpdateBook(initialBook);
+        setSnackMessage("Book deleted successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);
