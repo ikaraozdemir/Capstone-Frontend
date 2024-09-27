@@ -26,7 +26,7 @@
 }
 
 .hero-content {
-    width: 80%;
+    width: 70%;
     height: 40%;
     display: flex;
     align-items: center;
@@ -36,15 +36,18 @@
     font-family: monospace;
     z-index: 1;
     padding: 40px;
+    line-height: 1.9rem;
 }
 
 .hero-content>h1 {
     font-size: 36px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .hero-content>p {
-    font-size: 18px;
+    font-size: 22px;
     text-align: center;
+    font-weight: 500;
+    letter-spacing: 1.2px;
 
 }
