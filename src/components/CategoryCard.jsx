@@ -13,6 +13,8 @@ export default function CategoryCard({
   setUpdateCategory,
   setUpdateCategorySwitch,
   setCategorySwitch,
+  setSnackOpen,
+  setSnackMessage
 }) {
   const handleCategoryUpdateSettings = (category) => {
     setUpdateCategory(category);
@@ -27,6 +29,8 @@ export default function CategoryCard({
       .then((res) => {
         console.log(res);
         setCategorySwitch(false);
+        setSnackMessage("Category deleted successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);

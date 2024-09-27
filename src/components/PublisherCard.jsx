@@ -14,6 +14,8 @@ export default function PublisherCard({
   setUpdatePublisher,
   setUpdatePublisherSwitch,
   setPublisherSwitch,
+  setSnackOpen,
+  setSnackMessage
 }) {
 
     const handlePublisherUpdateSettings = (publisher) => {
@@ -29,6 +31,8 @@ export default function PublisherCard({
       .then((res) => {
         console.log(res);
         setPublisherSwitch(false);
+        setSnackMessage("Publisher deleted successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);

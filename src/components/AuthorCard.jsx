@@ -15,6 +15,8 @@ export default function AuthorCard({
   setUpdateAuthorSwitch,
   setAuthorSwitch,
   initialAuthor,
+  setSnackOpen,
+  setSnackMessage
 }) {
   const handleAuthorUpdateSettings = (author) => {
     setUpdateAuthor(author);
@@ -30,6 +32,8 @@ export default function AuthorCard({
         setAuthorSwitch(false);
         setUpdateAuthorSwitch(false);
         setUpdateAuthor(initialAuthor);
+        setSnackMessage("Author deleted successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);

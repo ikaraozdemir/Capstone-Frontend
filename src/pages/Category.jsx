@@ -75,6 +75,8 @@ function Category() {
         console.log(res);
         setCategorySwitch(false);
         setNewCategory(initialCategory);
+        setSnackMessage("Category added successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);
@@ -104,6 +106,8 @@ function Category() {
         setCategorySwitch(false);
         setUpdateCategorySwitch(false);
         setUpdateCategory(initialCategory);
+        setSnackMessage("Category updated successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);
@@ -198,6 +202,8 @@ function Category() {
                     setUpdateCategory={setUpdateCategory}
                     setUpdateCategorySwitch={setUpdateCategorySwitch}
                     setCategorySwitch={setCategorySwitch}
+                    setSnackOpen={setSnackOpen}
+                    setSnackMessage={setSnackMessage}
                   />
                 </li>
               ))}

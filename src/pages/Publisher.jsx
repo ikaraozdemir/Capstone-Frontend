@@ -106,6 +106,8 @@ function Publisher() {
         setPublisherSwitch(false);
         setUpdatePublisherSwitch(false);
         setUpdatePublisher(initialState);
+        setSnackMessage("Publisher updated successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);
@@ -215,6 +217,8 @@ function Publisher() {
                     setUpdatePublisher={setUpdatePublisher}
                     setUpdatePublisherSwitch={setUpdatePublisherSwitch}
                     setPublisherSwitch={setPublisherSwitch}
+                    setSnackOpen={setSnackOpen}
+                    setSnackMessage={setSnackMessage}
                   />
                 </li>
               ))}

@@ -95,6 +95,8 @@ function Borrowing() {
       .then((res) => {
         setBorrowingSwitch(false);
         setNewBorrowing(initialBorrowing);
+        setSnackMessage("Borrowing record added successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);
@@ -115,6 +117,8 @@ function Borrowing() {
         setBorrowingSwitch(false);
         setUpdateBorrowingSwitch(false);
         setUpdateBorrowing(initialBorrowing);
+        setSnackMessage("Borrowing record updated successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);
@@ -275,6 +279,8 @@ function Borrowing() {
                   setReturnedBorrowingId={setReturnedBorrowingId}
                   setOpen={setOpen}
                   returnedBorrowingId={returnedBorrowingId}
+                  setSnackOpen={setSnackOpen}
+                  setSnackMessage={setSnackMessage}
                 />
               </li>
             ))}

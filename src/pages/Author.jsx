@@ -72,6 +72,8 @@ function Author() {
         console.log(res);
         setAuthorSwitch(false);
         setNewAuthor(initialAuthor);
+        setSnackMessage("Author added successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);
@@ -100,6 +102,8 @@ function Author() {
         setAuthorSwitch(false);
         setUpdateAuthorSwitch(false);
         setUpdateAuthor(initialAuthor);
+        setSnackMessage("Author updated successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);
@@ -201,6 +205,8 @@ function Author() {
                     setUpdateAuthorSwitch={setUpdateAuthorSwitch}
                     setAuthorSwitch={setAuthorSwitch}
                     initiaAuthor={initialAuthor}
+                    setSnackOpen={setSnackOpen}
+                    setSnackMessage={setSnackMessage}
                   />
                 </li>
               ))}

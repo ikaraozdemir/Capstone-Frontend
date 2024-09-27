@@ -18,6 +18,8 @@ export default function BorrowingCard({
   setReturnedBorrowingId,
   setOpen,
   returnedBorrowingId,
+  setSnackOpen,
+  setSnackMessage
 }) {
   const handleBorrowingUpdateSettings = (borrowing) => {
     setUpdateBorrowing(borrowing);
@@ -33,6 +35,8 @@ export default function BorrowingCard({
         setBorrowingSwitch(false);
         setUpdateBorrowingSwitch(false);
         setUpdateBorrowing(null);
+        setSnackMessage("Borrowing record deleted successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);
@@ -55,9 +59,11 @@ export default function BorrowingCard({
           returnedBorrowing.id,
         returnedBorrowing
       )
-      .then((res) => {
+      .then(() => {
         setBorrowingSwitch(false);
         setReturnedBorrowingId(returnedBorrowing.id);
+        setSnackMessage("Borrowing record updated successfully!");
+        setSnackOpen(true);
       })
       .catch((err) => {
         setOpen(true);
