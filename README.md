@@ -5,9 +5,9 @@ The Library Management System is a web-based application designed for library st
 
 
 ## Table of Contents
-- [Demo Link](#demo)
+- [Demo Link](#demo-link)
 - [Features](#features)
-- [Features Under Development](#futureWorks)
+- [Features Under Development](#features-under-development)
 - [Technologies](#technologies)
 
 ## Demo Link
