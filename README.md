@@ -1,8 +1,37 @@
-# React + Vite
+# Capstone Library Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The Library Management System is a web-based application designed for library staff to manage books, authors, publishers, categories, customers, and borrowing records. The system implements CRUD operations and streamlines the process of managing library resources efficiently. 
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Table of Contents
+- [Demo Link](#demo)
+- [Features](#features)
+- [Features Under Development](#futureWorks)
+- [Technologies](#technologies)
+
+## Demo Link
+
+Check out the live demo of the website [here]().
+
+## Features
+
+- **Book Management:** Add, update, delete, and view books in the library collection.
+- **Author Management:** Manage author records, including adding, editing, and removing authors.
+- **Publisher Management:** CRUD operations for publishers, allowing staff to maintain the list of publishers.
+- **Category Management:** Handle categories for books, including adding new categories and editing existing ones.
+- **Borrowing Records:** Track and manage book borrowing records.
+Responsive Design: Adaptable to different screen sizes and devices for a seamless user experience.
+- **Modal Feedback:**  Notify users of errors with a message.
+- **Snackbar Notifications:** Use modals to provide feedback during save, update, and delete operations.
+- **Loading Indicators:**  A linear buffer is shown while data is being fetched.
+- **Responsive Design:** Responsive design, ensuring usability on various devices.
+
+## Features Under Development
+
+- **Return Process:** The return process is already implemented but will be further developed to enhance its functionality.
+- **Stock Updates:** Stock updates for books upon borrowing and return have not yet been implemented and will be developed in future versions.
+
+## Technologies
+
+<img src="./public/icons/HTML.svg" width="48"> <img src="./public/icons/CSS.svg" width="48"> <img src="./public/icons/JavaScript.svg" width="48"><img src="./public/icons/Vite-Dark.svg" width="48"> <img src="./public/icons/VSCode-Dark.svg" width="48"> <img src="./public/icons/React-Dark.svg" width="48">
