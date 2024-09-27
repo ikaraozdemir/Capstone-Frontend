@@ -7,8 +7,8 @@ function Welcome() {
     <div className="hero" >
     <img src="../../images/library_hero.png" alt="" className="hero-image"/> 
       <div className="hero-content">
-      <h1>Welcome</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum atque veritatis neque laboriosam, ipsa modi est id minima vitae iure odio error eum. Perferendis dolor fuga provident, ab illum sed.</p>
+      <h1>Library Management System</h1>
+        <p>The Library Management System is a modern web application designed to assist library staff in effectively managing books, publishers, customers, categories, and authors. With its user-friendly interface and powerful CRUD operations, library personnel can easily add new books, update existing ones, and swiftly handle user requests.</p>
 
       </div>
     </div>
