@@ -12,7 +12,9 @@ The Library Management System is a web-based application designed for library st
 
 ## Demo Link
 
-Check out the live demo of the website [here]().
+Check out the live demo of the website [here](https://capstone-library-management.netlify.app/).
+
+The API documentation for the Library Management System is available through Swagger. You can explore all available endpoints, request formats, and responses using the following link [here](https://libraryappspringboot-main.onrender.com/swagger-ui/index.html#/).
 
 ## Features
 
