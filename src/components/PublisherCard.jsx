@@ -33,6 +33,8 @@ export default function PublisherCard({
         setPublisherSwitch(false);
         setSnackMessage("Publisher deleted successfully!");
         setSnackOpen(true);
+        setUpdatePublisher(initialState);
+        setNewPublisher(initialState);
       })
       .catch((err) => {
         setOpen(true);
