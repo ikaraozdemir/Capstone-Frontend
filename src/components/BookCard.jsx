@@ -9,7 +9,6 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 
-
 export default function BookCard({
   book,
   setUpdateBook,
@@ -17,7 +16,7 @@ export default function BookCard({
   setBookSwitch,
   initialBook,
   setSnackOpen,
-  setSnackMessage
+  setSnackMessage,
 }) {
   const handleBookUpdateSettings = (book) => {
     setUpdateBook(book);

@@ -8,20 +8,18 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 
-
 export default function PublisherCard({
   publisher,
   setUpdatePublisher,
   setUpdatePublisherSwitch,
   setPublisherSwitch,
   setSnackOpen,
-  setSnackMessage
+  setSnackMessage,
 }) {
-
-    const handlePublisherUpdateSettings = (publisher) => {
-        setUpdatePublisher(publisher);
-        setUpdatePublisherSwitch(true);
-      };
+  const handlePublisherUpdateSettings = (publisher) => {
+    setUpdatePublisher(publisher);
+    setUpdatePublisherSwitch(true);
+  };
 
   const handlePublisherDelete = (publisher) => {
     axios
@@ -44,17 +42,17 @@ export default function PublisherCard({
 
   return (
     <Card
-    sx={{
-      maxWidth: 345,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      position: "relative",
-      minHeight: 210,
-      paddingLeft:3,
-      paddingRight:3
-    }}
+      sx={{
+        maxWidth: 345,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+        minHeight: 210,
+        paddingLeft: 3,
+        paddingRight: 3,
+      }}
     >
       <EditIcon
         sx={{
@@ -68,7 +66,7 @@ export default function PublisherCard({
       />
 
       <CardContent sx={{ paddingBottom: 1 }}>
-      <Typography
+        <Typography
           gutterBottom
           variant="h5"
           component="div"
@@ -87,9 +85,7 @@ export default function PublisherCard({
           </span>
           {publisher.establishmentYear}
           <br />
-          <span style={{ fontWeight: 600, color: "black" }}>
-            Address:{" "}
-          </span>
+          <span style={{ fontWeight: 600, color: "black" }}>Address: </span>
           {publisher.address}
           <br />
         </Typography>
@@ -119,7 +115,9 @@ export default function PublisherCard({
           }}
           onClick={() => handlePublisherDelete(publisher)}
         >
-          <DeleteOutlineIcon style={{ fontSize: 24, color: "rgb(128, 0, 32)" }} />
+          <DeleteOutlineIcon
+            style={{ fontSize: 24, color: "rgb(128, 0, 32)" }}
+          />
           DELETE
         </Button>
       </CardActions>

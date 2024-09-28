@@ -14,7 +14,7 @@ export default function CategoryCard({
   setUpdateCategorySwitch,
   setCategorySwitch,
   setSnackOpen,
-  setSnackMessage
+  setSnackMessage,
 }) {
   const handleCategoryUpdateSettings = (category) => {
     setUpdateCategory(category);
@@ -40,17 +40,17 @@ export default function CategoryCard({
 
   return (
     <Card
-    sx={{
-      maxWidth: 345,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      position: "relative",
-      minHeight: 210,
-      paddingLeft:3,
-      paddingRight:3
-    }}
+      sx={{
+        maxWidth: 345,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+        minHeight: 210,
+        paddingLeft: 3,
+        paddingRight: 3,
+      }}
     >
       <EditIcon
         sx={{
@@ -64,7 +64,7 @@ export default function CategoryCard({
       />
 
       <CardContent sx={{ paddingBottom: 1 }}>
-      <Typography
+        <Typography
           gutterBottom
           variant="h5"
           component="div"
@@ -78,9 +78,7 @@ export default function CategoryCard({
           variant="body3"
           sx={{ color: "text.secondary", textAlign: "center" }}
         >
-          <span style={{ fontWeight: 600, color: "black" }}>
-            Description:{" "}
-          </span>
+          <span style={{ fontWeight: 600, color: "black" }}>Description: </span>
           {category.description}
           <br />
         </Typography>
@@ -110,7 +108,9 @@ export default function CategoryCard({
           }}
           onClick={() => handleCategoryDelete(category)}
         >
-          <DeleteOutlineIcon style={{ fontSize: 24, color: "rgb(128, 0, 32)" }} />
+          <DeleteOutlineIcon
+            style={{ fontSize: 24, color: "rgb(128, 0, 32)" }}
+          />
           DELETE
         </Button>
       </CardActions>

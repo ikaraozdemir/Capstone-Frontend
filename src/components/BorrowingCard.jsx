@@ -19,7 +19,7 @@ export default function BorrowingCard({
   setOpen,
   returnedBorrowingId,
   setSnackOpen,
-  setSnackMessage
+  setSnackMessage,
 }) {
   const handleBorrowingUpdateSettings = (borrowing) => {
     setUpdateBorrowing(borrowing);
@@ -81,8 +81,8 @@ export default function BorrowingCard({
         justifyContent: "center",
         position: "relative",
         minHeight: 210,
-        paddingLeft:3,
-        paddingRight:3
+        paddingLeft: 3,
+        paddingRight: 3,
       }}
     >
       {returnedBorrowingId !== borrowing.id && !borrowing.returnDate && (

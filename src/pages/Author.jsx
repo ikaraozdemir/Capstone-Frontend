@@ -9,7 +9,6 @@ import Snackbar from "@mui/material/Snackbar";
 import LinearBuffer from "../components/LinearBuffer";
 import TextField from "@mui/material/TextField";
 
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -133,7 +132,7 @@ function Author() {
               value={updateAuthorSwitch ? updateAuthor.name : newAuthor.name}
               onChange={updateAuthorSwitch ? handleUpdateChange : handleChange}
             />
-          <br />
+            <br />
             <TextField
               id="standard-basic"
               variant="standard"
@@ -146,10 +145,10 @@ function Author() {
               }
               onChange={updateAuthorSwitch ? handleUpdateChange : handleChange}
             />
-                    <TextField
-            id="standard-basic"
-            label="Country"
-            variant="standard"
+            <TextField
+              id="standard-basic"
+              label="Country"
+              variant="standard"
               name="country"
               value={
                 updateAuthorSwitch ? updateAuthor.country : newAuthor.country

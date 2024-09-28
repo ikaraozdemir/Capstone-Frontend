@@ -14,7 +14,6 @@ import BookCard from "../components/BookCard";
 import Snackbar from "@mui/material/Snackbar";
 import LinearBuffer from "../components/LinearBuffer";
 
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -115,7 +114,7 @@ function Book() {
     return (
       <div>
         <Box sx={{ width: "100%" }}>
-          <LinearBuffer/>
+          <LinearBuffer />
         </Box>
       </div>
     );
@@ -249,7 +248,6 @@ function Book() {
       <h1>Book Management</h1>
       <div className="books-container">
         <div className="book-inputs">
-
           <TextField
             id="standard-basic"
             label="Name"
@@ -361,7 +359,11 @@ function Book() {
           <Button
             variant="contained"
             onClick={updateBookSwitch ? handleBookUpdate : handleBook}
-            sx = {{fontSize:"inherit" ,fontFamily:"inherit", backgroundColor:"rgb(92, 64, 51)"}}
+            sx={{
+              fontSize: "inherit",
+              fontFamily: "inherit",
+              backgroundColor: "rgb(92, 64, 51)",
+            }}
           >
             {updateBookSwitch ? "Update" : "Save"}
           </Button>
@@ -383,12 +385,12 @@ function Book() {
           </Box>
         </Modal>
         <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={snackOpen}
-        onClose={handleCloseSnack}
-        message={snackMessage}
-        autoHideDuration={3000}
-      />
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={snackOpen}
+          onClose={handleCloseSnack}
+          message={snackMessage}
+          autoHideDuration={3000}
+        />
         <div className="book-list">
           <h2>Books</h2>
           <ul>

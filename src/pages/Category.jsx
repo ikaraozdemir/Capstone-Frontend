@@ -9,7 +9,6 @@ import Snackbar from "@mui/material/Snackbar";
 import LinearBuffer from "../components/LinearBuffer";
 import TextField from "@mui/material/TextField";
 
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -165,7 +164,11 @@ function Category() {
               onClick={
                 updateCategorySwitch ? handleCategoryUpdate : handleCategory
               }
-              sx = {{fontSize:"inherit" ,fontFamily:"inherit", backgroundColor:"rgb(92, 64, 51)"}}
+              sx={{
+                fontSize: "inherit",
+                fontFamily: "inherit",
+                backgroundColor: "rgb(92, 64, 51)",
+              }}
             >
               {updateCategorySwitch ? "Update" : "Save"}
             </Button>

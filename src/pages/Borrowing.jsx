@@ -11,7 +11,6 @@ import BorrowingCard from "../components/BorrowingCard";
 import Snackbar from "@mui/material/Snackbar";
 import LinearBuffer from "../components/LinearBuffer";
 
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -70,7 +69,6 @@ function Borrowing() {
       .then((res) => {
         setBooks(res.data);
         setLoading(false);
-
       })
       .catch((err) => {
         setOpen(true);
@@ -83,7 +81,7 @@ function Borrowing() {
     return (
       <div>
         <Box sx={{ width: "100%" }}>
-          <LinearBuffer/>
+          <LinearBuffer />
         </Box>
       </div>
     );
@@ -92,7 +90,7 @@ function Borrowing() {
   const handleBorrowing = () => {
     axios
       .post(import.meta.env.VITE_APP_BASE_URL + "/api/v1/borrows", newBorrowing)
-      .then((res) => {
+      .then(() => {
         setBorrowingSwitch(false);
         setNewBorrowing(initialBorrowing);
         setSnackMessage("Borrowing record added successfully!");
@@ -238,7 +236,11 @@ function Borrowing() {
             onClick={
               updateBorrowingSwitch ? handleBorrowingUpdate : handleBorrowing
             }
-            sx = {{fontSize:"inherit" ,fontFamily:"inherit", backgroundColor:"rgb(92, 64, 51)"}}
+            sx={{
+              fontSize: "inherit",
+              fontFamily: "inherit",
+              backgroundColor: "rgb(92, 64, 51)",
+            }}
           >
             {updateBorrowingSwitch ? "UPDATE" : "SAVE"}
           </Button>
@@ -259,15 +261,15 @@ function Borrowing() {
           </Box>
         </Modal>
         <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={snackOpen}
-        onClose={handleCloseSnack}
-        message={snackMessage}
-        autoHideDuration={6000}
-      />
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={snackOpen}
+          onClose={handleCloseSnack}
+          message={snackMessage}
+          autoHideDuration={6000}
+        />
 
         <div className="book-list">
-          <h2>Borrowing</h2>
+          <h2>Borrowing Records</h2>
           <ul>
             {borrowings?.map((borrowing) => (
               <li key={borrowing.id}>

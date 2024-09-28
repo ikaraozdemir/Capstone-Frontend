@@ -50,7 +50,6 @@ function ResponsiveAppBar() {
             <Typography
               variant="h6"
               noWrap
-              // component="a"
               href="#app-bar-with-responsive-menu"
               sx={{
                 fontFamily: "monospace",
@@ -65,7 +64,13 @@ function ResponsiveAppBar() {
             </Typography>
           </NavLink>
 
-          <Box sx={{display: { xs: "flex", md: "none" }, justifyContent: 'end', ml: 'auto' }}>
+          <Box
+            sx={{
+              display: { xs: "flex", md: "none" },
+              justifyContent: "end",
+              ml: "auto",
+            }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -94,23 +99,23 @@ function ResponsiveAppBar() {
             >
               {pages.map((page) => (
                 <NavLink
-                key={page}
-                onClick={handleCloseNavMenu}
-                style={{
-                  my: 2,
-                  display: "flex",
-                  direction:"column",
-                  fontFamily: "monospace",
-                  fontSize: 16,
-                  color: "black",
-                  letterSpacing: 1.8,
-                  marginRight: 16,
-                  fontWeight: 700,
-                  textDecoration: " none",
-                  paddingLeft:5
-                }}
-                to={`/${page.toLowerCase()}`}
-              >
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  style={{
+                    my: 2,
+                    display: "flex",
+                    direction: "column",
+                    fontFamily: "monospace",
+                    fontSize: 16,
+                    color: "black",
+                    letterSpacing: 1.8,
+                    marginRight: 16,
+                    fontWeight: 700,
+                    textDecoration: " none",
+                    paddingLeft: 5,
+                  }}
+                  to={`/${page.toLowerCase()}`}
+                >
                   <Typography sx={{ textAlign: "center" }}>{page}</Typography>
                 </NavLink>
               ))}

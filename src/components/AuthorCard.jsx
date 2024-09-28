@@ -16,7 +16,7 @@ export default function AuthorCard({
   setAuthorSwitch,
   initialAuthor,
   setSnackOpen,
-  setSnackMessage
+  setSnackMessage,
 }) {
   const handleAuthorUpdateSettings = (author) => {
     setUpdateAuthor(author);
@@ -126,7 +126,9 @@ export default function AuthorCard({
           }}
           onClick={() => handleAuthorDelete(author)}
         >
-          <DeleteOutlineIcon style={{ fontSize: 24, color: "rgb(128, 0, 32)" }} />
+          <DeleteOutlineIcon
+            style={{ fontSize: 24, color: "rgb(128, 0, 32)" }}
+          />
           DELETE
         </Button>
       </CardActions>
