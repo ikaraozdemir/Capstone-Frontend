@@ -150,7 +150,6 @@ function Author() {
             id="standard-basic"
             label="Country"
             variant="standard"
-            type="number"
               name="country"
               value={
                 updateAuthorSwitch ? updateAuthor.country : newAuthor.country
