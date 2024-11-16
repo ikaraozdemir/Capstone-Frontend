@@ -10,6 +10,8 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 
+let errMessage = "";
+
 export default function BorrowingCard({
   borrowing,
   setUpdateBorrowing,
@@ -47,7 +49,7 @@ export default function BorrowingCard({
   const handleReturn = (returnedBorrowing) => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 3;
+    const month = currentDate.getMonth() + 1;
     const day = currentDate.getDate();
     const returnedDate = `${year}-${month}-${day}`;
     returnedBorrowing.returnDate = returnedDate;
@@ -60,6 +62,7 @@ export default function BorrowingCard({
         returnedBorrowing
       )
       .then(() => {
+        console.log(returnedBorrowing);
         setBorrowingSwitch(false);
         setReturnedBorrowingId(returnedBorrowing.id);
         setSnackMessage("Borrowing record updated successfully!");

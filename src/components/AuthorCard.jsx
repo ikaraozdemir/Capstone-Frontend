@@ -9,6 +9,8 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 
+let errMessage = "";
+
 export default function AuthorCard({
   author,
   setUpdateAuthor,
